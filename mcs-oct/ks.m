@@ -25,7 +25,6 @@ tics('x',[0 3 6]);tics('y',[0 2 4]);tics('z',[-2 0 2]);
 %the same over original scales
 figure(1);clf;
 huwf(X/sf,T/sf,ua,'k',2);axis([0 2*pi/sf 0 tmax/sf]);view(2,44);grid off;
-break
 % density plot 
 figure(1);clf;colormap gray;pcolor(x,tv,ua); colorbar;
  shading interp;axis([0 2*pi 0 tmax]); 
@@ -36,7 +35,7 @@ pcolor(N,T,uha(:,n/2+1:n/2+kplot+1)); colorbar;
 axis([0 kplot 0 tmax]);shading interp;
 % Fourier waterfall 
 kplot=50;[N,T]=meshgrid(0:kplot,tv);
-figure(2);clf;huwf(N,T,uha(:,n/2+1:n/2+kplot+1),'k');
+figure(2);clf;huwf(N,T,uha(:,n/2+1:n/2+kplot+1),'k',2);
 axis([0 kplot 0 tmax]);view(4,80);grid off
 % -----------------  long-time behaviour
 more=1;more=ask('longer time? (Y/n)',more);
@@ -46,9 +45,14 @@ figure(3);clf;plot(x,real(u),x,abs(fftshift(uh))/n,'-o');
 t=t+100*h;title(['t= ',num2str(t)]);more=ask('longer time? (Y/n)',more);
 end
 %%
-s1=1; s2=1/20;
-k=0:22; kf=0:0.1:22;
-plot(k,s2*k.^2-s2^3*k.^4, '-ko'); set(gca,'FontSize',20);axis([0 22 -5 5]);
+s=1/20; k=0:22;
+figure(4)
+plot(k,s*k.^2-s^3*k.^4, '-ko'); set(gca,'FontSize',20);axis([0 22 -5 5]);
+xlabel('k'); ylabel('Growth rate: \lambda_k = s k^2 - s^3 k^4')
+title('s=1/20')
 %%
 s=1; k=0:5; 
+figure(5)
 plot(k,s*k.^2-s^3*k.^4, '-ko'); set(gca,'FontSize',20);axis([0 5 -600 10]);
+xlabel('k'); ylabel('Growth rate: \lambda_k = s k^2 - s^3 k^4')
+title('s=1')
